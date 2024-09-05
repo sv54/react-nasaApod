@@ -16,16 +16,16 @@ function App() {
     async function fetchAPIData() {
       const NASA_KEY = import.meta.env.VITE_NASA_API_KEY
       const url = 'https://api.nasa.gov/planetary/apod' + `?api_key=${NASA_KEY}`
-
-      const today = (new Date()).toDateString
+      const today = new Date()
       const localkey = `NASA-${today}`
+      console.log(localkey)
       if (localStorage.getItem(localkey)) {
         const apiData = JSON.parse(localStorage.getItem(localkey))
         setData(apiData)
         console.log('Fetched from cache')
         return
       }
-      localStorage.clear()
+      //localStorage.clear()
 
 
       try {
@@ -47,7 +47,7 @@ function App() {
     <>
       {data ? (<Main data={data} />) :
         <div className='loadingState'>
-          <i class="fa-solid fa-gear"></i>
+          <i className="fa-solid fa-gear"></i>
         </div>
       }
       {showModal && (<SideBar handleToggleModal={handleToggleModal} data={data}></SideBar>)}
